@@ -1,0 +1,4 @@
+[
+  {"name":"admin", "roles": ["ROLE_ADMIN"]},
+  {"name": "client1", "roles": []}
+]

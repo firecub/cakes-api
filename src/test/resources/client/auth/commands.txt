@@ -1,0 +1,9 @@
+#Generate self-signed CA certificate and key for signing client certicifates.
+openssl genpkey -out privcakey01.pem -outform PEM -algorithm RSA -pkeyopt rsa_keygen_bits:2048
+openssl req -key privcakey01.pem -keyform PEM -config ca01-config -x509 -days 1095 -outform PEM -out root-cert.pem
+
+#Generate admin client certificate and key. 
+openssl genpkey -out privadminkey.pem -outform PEM -algorithm RSA -pkeyopt rsa_keygen_bits:2048
+openssl req -outform PEM -out admin-cert-req.pem -new -key privadminkey.pem -keyform PEM -config admin-cert-01-config
+openssl x509 -in admin-cert-req.pem -inform PEM -outform PEM -out admin-cert.pem -days 30 -req -CA root-cert.pem -CAkey privcakey01.pem -CAserial ca-serial -CAcreateserial
+

@@ -1,0 +1,4 @@
+openssl genpkey -out server-key.pem -outform PEM -algorithm RSA -pkeyopt rsa_keygen_bits:2048
+openssl x509 -new -inform PEM -key server-key.pem -keyform PEM -days 3652 -subj "/OU=example/CN=localhost" -extfile cert-config -extensions req_extensions_sec -out server-cert.pem -outform PEM
+openssl pkcs12 -passout pass:dumbpassword -export -out server-store.p12 -inkey server-key.pem -in server-cert.pem -name cake
+
